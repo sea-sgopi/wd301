@@ -2,6 +2,7 @@
 // import TaskApp from "./TaskApp";
 // import TaskForm from "./TaskForm";
 // import TaskList from "./TaskList";
+import Layout from './Layout';
 import HomePage from './pages/HomePage';
 import TaskListPage from './pages/TaskListPage';
 import {
@@ -11,13 +12,20 @@ import {
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/tasks",
-    element: <TaskListPage />,
-  },
+    element: (
+      <Layout />
+    ),
+    children: [
+      {
+        path: "/",
+        element: (<HomePage />)
+      },
+      {
+        path: "tasks",
+        element: (<TaskListPage />)
+      }
+    ]
+  }
 ]);
 
 const App = () => {
