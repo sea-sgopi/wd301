@@ -5,6 +5,7 @@
 import Layout from './Layout';
 import HomePage from './pages/HomePage';
 import TaskListPage from './pages/TaskListPage';
+import TaskDetailsPage from "./pages/TaskDetailsPage";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
       {
         path: "tasks",
         element: (<TaskListPage />)
-      }
+      },
+      {
+        path: "tasks/:id",
+        element: (<TaskDetailsPage />)
+      },
     ]
   }
 ]);
