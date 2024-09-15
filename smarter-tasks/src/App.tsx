@@ -1,48 +1,61 @@
-// import Task from "./Task"
-// import TaskApp from "./TaskApp";
-// import TaskForm from "./TaskForm";
-// import TaskList from "./TaskList";
+import {
+  createBrowserRouter,
+  Navigate, 
+  RouterProvider,
+} from "react-router-dom";
 import Layout from './Layout';
 import HomePage from './pages/HomePage';
 import TaskListPage from './pages/TaskListPage';
 import TaskDetailsPage from "./pages/TaskDetailsPage";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-// import TaskForm from './TaskForm';
-import TaskApp from './TaskApp';
+import Signin from "./pages/Signin";
+import ProtectedRoute from "./ProtectedRoute";
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <Navigate to="/signin" replace />,
+  },
+  {
+    path: "/signin",
+    element: <Signin />,
+  },
+  {
     element: (
-      <Layout />
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
     ),
     children: [
       {
-        path: "/",
-        element: (<HomePage />)
-      },
-      {
-        path: "/form",
-        element: (<TaskApp/>)
+        path: "home",
+        element: <HomePage />,
       },
       {
         path: "tasks",
-        element: (<TaskListPage />)
+        element: <TaskListPage />,
       },
       {
         path: "tasks/:id",
-        element: (<TaskDetailsPage />)
+        element: <TaskDetailsPage />,
       },
-    ]
-  }
+    ],
+  },
+  {
+    path: "/notfound",
+    element: <NotFound />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/notfound" replace />,
+  },
 ]);
+
 
 const App = () => {
   return (
     <RouterProvider router={router} />
   );
-}
+};
 
-export default App
+export default App;
