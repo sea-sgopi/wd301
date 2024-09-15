@@ -6,6 +6,7 @@ interface TaskFormProps {
 }
 
 interface TaskFormState {
+    id:string
     title: string;
     description: string;
     dueDate: string;
@@ -13,6 +14,7 @@ interface TaskFormState {
 
 const TaskForm = (props:TaskFormProps) => {
 const [formState, setFormState] = React.useState<TaskFormState>({
+  id: '',
     title: '',
     description: '',
     dueDate: '',
@@ -36,7 +38,7 @@ const addTask:React.FormEventHandler<HTMLFormElement> = (event) => {
         return;
     }
     props.addTasks(formState);
-    setFormState({title: '', description: '', dueDate: ''});
+    setFormState({id: '',title: '', description: '', dueDate: ''});
 }
 return (
     <form onSubmit={addTask}>

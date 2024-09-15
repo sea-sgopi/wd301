@@ -11,10 +11,10 @@ const TaskList: React.FC<Props> = (props) => {
     const list = props.tasks.map((task, idx) => (
         <Task
             key={idx}
-            title={task.title}
-            description={task.description}
-            dueDate={task.dueDate}
-            onDelete={() => props.onDelete(idx)} 
+            item={task}
+            // description={task.description}
+            // dueDate={task.dueDate}
+            removeTask={() => props.onDelete(idx)} 
         />
     ));
     return (

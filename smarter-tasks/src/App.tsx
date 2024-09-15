@@ -10,6 +10,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+// import TaskForm from './TaskForm';
+import TaskApp from './TaskApp';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (<HomePage />)
+      },
+      {
+        path: "/form",
+        element: (<TaskApp/>)
       },
       {
         path: "tasks",
