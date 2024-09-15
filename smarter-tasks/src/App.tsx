@@ -3,6 +3,7 @@ import {
   Navigate, 
   RouterProvider,
 } from "react-router-dom";
+import Header from "./components/Header";
 import Layout from './Layout';
 import HomePage from './pages/HomePage';
 import TaskListPage from './pages/TaskListPage';
@@ -11,6 +12,8 @@ import Signin from "./pages/Signin";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from './pages/Notfound';
 import ReactPlayground from "./ReactPlayground";
+import Form from './Form';
+
 
 const router = createBrowserRouter([
   {
@@ -54,11 +57,19 @@ const router = createBrowserRouter([
 
 
 const App = () => {
+  const isHeaderVisible = true;
   return (
-    <>
-      <ReactPlayground />
-      <RouterProvider router={router} />
-    </>
+    
+     
+      <div>
+      {isHeaderVisible && <Header />}
+      <Form />
+
+        <ReactPlayground />
+        <RouterProvider router={router} />
+
+    </div>
+
     
   );
 };
