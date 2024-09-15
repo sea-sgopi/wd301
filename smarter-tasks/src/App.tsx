@@ -1,30 +1,16 @@
 import {
-  createBrowserRouter,
-  Navigate, 
+  createBrowserRouter, 
   RouterProvider,
 } from "react-router-dom";
 import Header from "./components/Header";
-import Layout from './Layout';
-import HomePage from './pages/HomePage';
-import TaskListPage from './pages/TaskListPage';
-import TaskDetailsPage from "./pages/TaskDetailsPage";
 import Signin from "./pages/signin";
 import ProtectedRoute from "./ProtectedRoute";
-import NotFound from './pages/Notfound';
-import ReactPlayground from "./ReactPlayground";
-import Form from './Form';
+import Notfound from './pages/Notfound';
 import Signup from './pages/signup';
+import Dashboard from "./pages/dashboard";
 
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Navigate to="/signup" replace />,
-  },
-  {
-    path: "/signin",
-    element: <Signin />,
-  },
   {
     path: "/",
     element: <Signup />,
@@ -34,36 +20,26 @@ const router = createBrowserRouter([
     element: <Signup />,
   },
   {
-    element: (
-      <ProtectedRoute>
-        <Layout />
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        path: "home",
-        element: <HomePage />,
-      },
-      {
-        path: "tasks",
-        element: <TaskListPage />,
-      },
-      {
-        path: "tasks/:id",
-        element: <TaskDetailsPage />,
-      },
-    ],
+    path: "/signin",
+    element: <Signin />,
   },
   {
     path: "/notfound",
-    element: <NotFound />,
+    element: <Notfound />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "*",
-    element: <Navigate to="/notfound" replace />,
-  },
+    element: <Notfound />,
+  }
 ]);
-
 
 const App = () => {
   const isHeaderVisible = true;
@@ -72,9 +48,9 @@ const App = () => {
      
       <div>
       {isHeaderVisible && <Header />}
-      <Form />
+      {/* <Form /> */}
 
-        <ReactPlayground />
+        {/* <ReactPlayground /> */}
         <RouterProvider router={router} />
 
     </div>
