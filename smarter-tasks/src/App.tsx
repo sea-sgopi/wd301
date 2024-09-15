@@ -13,16 +13,25 @@ import ProtectedRoute from "./ProtectedRoute";
 import NotFound from './pages/Notfound';
 import ReactPlayground from "./ReactPlayground";
 import Form from './Form';
+import Signup from './pages/signup';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/signin" replace />,
+    element: <Navigate to="/signup" replace />,
   },
   {
     path: "/signin",
     element: <Signin />,
+  },
+  {
+    path: "/",
+    element: <Signup />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
   {
     element: (
