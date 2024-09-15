@@ -25,6 +25,7 @@ const SigninForm: React.FC = () => {
 
       // After successful signin, first we will save the token in localStorage
       localStorage.setItem('authToken', data.token);
+      localStorage.setItem('userData', JSON.stringify(data.user));
       
       // After successful signin we have to redirect the user to the secured page. We will do that later.
 
