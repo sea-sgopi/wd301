@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.8",
+    "@heroicons/react": "^2.1.5",
     "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^10.0.0",
     "react": "^18.3.1",
