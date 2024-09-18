@@ -1,23 +1,31 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { API_ENDPOINT } from '../../config/constants'
+import { useForm, SubmitHandler } from "react-hook-form"
+
+
+type Inputs = {
+    name: string
+};
+
 
 const NewProject = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
   
     const openModal = () => {
         setIsOpen(true)
     }
 
-    const [name, setName] = useState('');
+    // const [name, setName] = useState('');
   
     const closeModal = () => {
       setIsOpen(false)
     }
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        const { name } = data
         const token = localStorage.getItem("authToken") ?? "";
         try {
             const response = await fetch(`${API_ENDPOINT}/projects`, {
@@ -81,8 +89,13 @@ const NewProject = () => {
                       Create new project
                     </Dialog.Title>
                     <div className="mt-2">
-                    <form onSubmit={handleSubmit}>
-                    <input type="text" required placeholder='Enter project name...' autoFocus name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} className="w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue" />
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <input type="text" required placeholder='Enter project name...' 
+                    autoFocus {...register('name', {required: true })} id="name" 
+                    className={`w-full border rounded-md py-2 px-3 my-4 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline-blue ${
+                        errors.name ? 'border-red-500' : ''
+                      }`} />
+                    {errors.name && <span>This field is required</span>}
                     <button type="submit" className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 mr-2 text-sm font-medium text-white hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                         Submit
                     </button>
