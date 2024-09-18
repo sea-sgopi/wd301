@@ -1,11 +1,15 @@
+import NewProject from './NewProject';
 import ProjectList from './ProjectList';
 
 const Projects: React.FC = () => {
   return (
-    <div>
-      <h2>Projects</h2>
-      <ProjectList />
+    <>
+    <div className="flex justify-between">
+      <h2 className="text-2xl font-medium tracking-tight">Projects</h2>
+      <NewProject />
     </div>
+    <ProjectList />
+  </>
   );
 };
 
