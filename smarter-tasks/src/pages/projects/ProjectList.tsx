@@ -11,16 +11,20 @@ interface State {
   isLoading: boolean;
 }
 
-type Action =
-  | { type: 'SET_LOADING'; payload: boolean }
-  | { type: 'SET_PROJECTS'; payload: Project[] };
+interface Action {
+  type: string;
+  payload?: any;
+}
+
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'SET_LOADING':
-      return { ...state, isLoading: action.payload };
-    case 'SET_PROJECTS':
-      return { ...state, projects: action.payload };
+    case 'API_CALL_START':
+      return { ...state, isLoading: true };
+    case 'API_CALL_END':
+      return { ...state, isLoading: false, projects: action.payload };
+    case 'API_CALL_ERROR':
+      return { ...state, isLoading: false };
     default:
       return state;
   }
@@ -40,7 +44,7 @@ const ProjectList: React.FC = () => {
     const token = localStorage.getItem('authToken') ?? '';
 
     try {
-      dispatch({ type: 'SET_LOADING', payload: true });
+      dispatch({ type: 'API_CALL_START' });
 
       const response = await fetch(`${API_ENDPOINT}/projects`, {
         method: 'GET',
@@ -51,27 +55,28 @@ const ProjectList: React.FC = () => {
       });
 
       const data = await response.json();
-
-      dispatch({ type: 'SET_PROJECTS', payload: data });
-      dispatch({ type: 'SET_LOADING', payload: false });
+      dispatch({ type: 'API_CALL_END', payload: data });
     } catch (error) {
       console.error('Error fetching projects:', error);
-      dispatch({ type: 'SET_LOADING', payload: false });
+      dispatch({ type: 'API_CALL_ERROR' });
     }
   };
 
   return (
     <div>
-      <h2>Project List</h2>
-      {state.isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <ul>
-          {state.projects.map((project) => (
-            <li key={project.id}>{project.name}</li>
-          ))}
-        </ul>
-      )}
+    {state.isLoading ? (
+      <div>Loading...</div>
+    ) : (
+      <div className="grid gap-4 grid-cols-4 mt-5">
+        {state.projects.map((project) => (
+          <div key={project.id} className='block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
+            <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900 dark:text-white">
+              {project.name}
+            </h5>
+          </div>
+        ))}
+      </div>
+    )}
     </div>
   );
 };
