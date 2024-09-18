@@ -1,6 +1,11 @@
-const Projects = () => {
+import ProjectList from './ProjectList';
+
+const Projects: React.FC = () => {
   return (
-    <h2>Projects</h2>
+    <div>
+      <h2>Projects</h2>
+      <ProjectList />
+    </div>
   );
 };
 
