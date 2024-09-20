@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+
 import { useProjectsState } from "../../context/projects/context";
+import { useTasksState } from "../../context/task/context";
+import DragDropList from "./DragDropList";
 
 const ProjectDetails = () => {
+    
   const projectState = useProjectsState();
   const { projectID } = useParams();
+  const tasksState = useTasksState();
 
   const selectedProject = projectState?.projects.filter(
     (project) => `${project.id}` === projectID
@@ -13,6 +18,11 @@ const ProjectDetails = () => {
   if (!selectedProject) {
     return <>No such Project!</>;
   }
+
+  if (tasksState.isLoading) {
+    return <>Loading...</>;
+  }
+
   return (
     <>
       <div className="flex justify-between">
@@ -27,6 +37,9 @@ const ProjectDetails = () => {
             New Task
           </button>
         </Link>
+        <div className="grid grid-cols-1 gap-2">
+            <DragDropList data={tasksState.projectData} />
+        </div>
       </div>
     </>
   );
