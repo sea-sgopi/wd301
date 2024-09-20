@@ -3,11 +3,11 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import Signin from "../pages/signin"
 import Signup from "../pages/signup"
 import AccountLayout from "../layouts/account"
-import ProtectedRoute from "./ProtectedRoute"
+import ProtectedRoute from "./ProtectedRoutes"
 import Projects from "../pages/projects";
 import Members from "../pages/members";
 import Logout from "../pages/logout";
-import NotFound from "../pages/notfound/NotFound";
+import NotFound from "../pages/NotFound";
 
 
 const router = createBrowserRouter([
