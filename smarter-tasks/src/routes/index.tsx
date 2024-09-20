@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import Signin from "../pages/signin"
 import Signup from "../pages/signup"
@@ -9,6 +9,7 @@ import Members from "../pages/members";
 import Logout from "../pages/logout";
 import NotFound from "../pages/Notfound";
 import ProjectContainer from "../pages/projects/ProjectContainer";
+import ProjectDetails from "../pages/project_details";
 
 
 const router = createBrowserRouter([
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
           { index: true, element: <Projects /> },
           {
             path: ":projectID",
-            element: <>Show project details <Outlet /></>,
+            element: <ProjectDetails />,
             children: [
               { index: true, element: <></> },
               {
