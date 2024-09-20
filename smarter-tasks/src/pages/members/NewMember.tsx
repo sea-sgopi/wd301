@@ -14,7 +14,7 @@ type Inputs = {
 const NewMember = () => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
   const [emailError, setEmailError] = useState<string | null>(null);
   const dispatchMembers = useMembersDispatch();
 
@@ -28,13 +28,17 @@ const NewMember = () => {
 
   const closeModal = () => {
     setIsOpen(false)
+    setError(null);
+    setEmailError(null);
   }
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
       try {
-          const response = await addMember(dispatchMembers, data)
+          const { name , email, password} = data;
+          const response = await addMember(dispatchMembers, {name, email, password})
            
           if (response.ok) {
+            window.location.reload();
             setIsOpen(false)
           } else {
             if (response.error === 'email must be unique') {

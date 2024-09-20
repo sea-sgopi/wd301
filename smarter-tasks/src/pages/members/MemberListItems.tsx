@@ -19,7 +19,7 @@ export default function MemberListItems() {
     return <span>Loading...</span>;
   }
   
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     const response = await deleteMember(dispatchMembers, id); // Call the deleteMember action
     if (!response.ok) {
       console.error('Failed to delete member:', response.error);
@@ -35,10 +35,10 @@ export default function MemberListItems() {
   // individual Members card.
   return (
     <>
-      {members.map((member: any) => (
-        <div key={member.id} className="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-          <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900 dark:text-white">{member.name}</h5>
-          <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900 dark:text-white">{member.email}</h5>
+      {members.map((member: any, index: number) => (
+        <div key={member.id ?? index } className="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900 dark:text-white">Name: {member.name}</h5>
+          <h5 className="mb-2 text-xl font-medium tracking-tight text-gray-900 dark:text-white">Email: {member.email}</h5>
           <button
             onClick={() => handleDelete(member.id)}
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300"

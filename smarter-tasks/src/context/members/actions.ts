@@ -42,7 +42,7 @@ export const addMember = async (dispatch: any, args: any) => {
     }
   };
 
-export const deleteMember = async (dispatch: any, id: string) => {
+export const deleteMember = async (dispatch: any, id: number) => {
     try {
       const token = localStorage.getItem("authToken") ?? "";
       const response = await fetch(`${API_ENDPOINT}/users/${id}`, {

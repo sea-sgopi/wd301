@@ -2,7 +2,7 @@ interface Member {
     id: number;
     name: string;
     email: string;
-    password?: string;
+    organsation_id: number
 }
 
 export interface MembersState {
@@ -17,7 +17,7 @@ export type MembersActions =
   | { type: 'FETCH_MEMBERS_SUCCESS'; payload: Member[] }
   | { type: 'FETCH_MEMBERS_FAILURE'; payload: string }
   | { type: 'ADD_MEMBER_SUCCESS'; payload: Member }
-  | { type: 'DELETE_MEMBER_SUCCESS'; payload: Member }
+  | { type: 'DELETE_MEMBER_SUCCESS'; payload: number }
 
 
 export const membersInitialState: MembersState = {
@@ -55,7 +55,7 @@ export const membersInitialState: MembersState = {
       case 'DELETE_MEMBER_SUCCESS' :
         return { 
             ...state,
-             members: [...state.members, action.payload] 
+             members: state.members.filter(member => member.id !== action.payload) 
         };           
       default:
         return state;
