@@ -2,10 +2,16 @@
 // Import required type annotations
 import { API_ENDPOINT } from "../../config/constants";
 import {
+  ProjectData,
   TaskDetailsPayload,
   TaskListAvailableAction,
   TasksDispatch,
 } from "./types";
+
+
+export const reorderTasks = (dispatch: TasksDispatch, newState: ProjectData)  => {
+  dispatch({type: TaskListAvailableAction.REORDER_TASKS, payload: newState})
+}
 
 // The function will take a dispatch as first argument, which can be used to send an action to `reducer` and update the state accordingly
 export const addTask = async (
