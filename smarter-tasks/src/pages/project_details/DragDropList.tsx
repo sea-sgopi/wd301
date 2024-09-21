@@ -4,7 +4,8 @@ import Column from "./Column";
 
 import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd";
 import { useTasksDispatch } from "../../context/task/context";
-import { reorderTasks } from "../../context/task/actions";
+import { reorderTasks, updateTask } from "../../context/task/actions";
+import { useParams } from "react-router-dom";
 
 
 const Container = (props: React.PropsWithChildren) => {
@@ -32,6 +33,7 @@ const onDragEnd: OnDragEndResponder = (result) => {
   // Get destination list to modify
   const finish = props.data.columns[finishKey];
 
+  
   if (start === finish) {
     const newTaskIDs = Array.from(start.taskIDs);
     newTaskIDs.splice(source.index, 1);
@@ -58,6 +60,8 @@ const DragDropList = (props: {
   data: ProjectData;
 }) => {
   const taskDispatch = useTasksDispatch();
+  const { projectID } = useParams();
+
   const onDragEnd: OnDragEndResponder = (result) => {
     const { destination, source, draggableId } = result;
     if (!destination) {
@@ -123,6 +127,9 @@ const DragDropList = (props: {
       },
     };
     reorderTasks(taskDispatch, newState);
+    const updatedTask = props.data.tasks[updatedItems[0]];
+    updatedTask.state = finishKey;
+    updateTask(taskDispatch, projectID ?? "", updatedTask);
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
