@@ -2,15 +2,21 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { useProjectsState } from "../../context/projects/context";
-import { useTasksState } from "../../context/task/context";
+import { useTasksState, useTasksDispatch } from "../../context/task/context";
 import DragDropList from "./DragDropList";
+import { refreshTasks } from "../../context/task/actions";
 
 const ProjectDetails = () => {
     
   const projectState = useProjectsState();
+  const taskDispatch = useTasksDispatch();
   const { projectID } = useParams();
   const tasksState = useTasksState();
 
+  useEffect(() => {
+    if (projectID) refreshTasks(taskDispatch, projectID);
+  }, [projectID, taskDispatch]);
+  
   const selectedProject = projectState?.projects.filter(
     (project) => `${project.id}` === projectID
   )?.[0];
