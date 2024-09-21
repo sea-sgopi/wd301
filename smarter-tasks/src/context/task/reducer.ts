@@ -28,6 +28,17 @@ export const initialState: TaskListState = {
           isError: true,
           errorMessage: action.payload,
         };
+      case TaskListAvailableAction.DELETE_TASKS_REQUEST:
+        return { ...state, isLoading: true };
+      case TaskListAvailableAction.DELETE_TASKS_SUCCESS:
+        return { ...state, isLoading: false };
+      case TaskListAvailableAction.DELETE_TASKS_FAILURE:
+        return {
+          ...state,
+          isLoading: false,
+          isError: true,
+          errorMessage: action.payload,
+        };
       case TaskListAvailableAction.CREATE_TASK_REQUEST:
         return { ...state, isLoading: true };
       case TaskListAvailableAction.CREATE_TASK_SUCCESS:

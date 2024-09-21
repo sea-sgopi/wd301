@@ -12,6 +12,10 @@ export type TaskListState = {
     FETCH_TASKS_SUCCESS = "FETCH_TASKS_SUCCESS",
     FETCH_TASKS_FAILURE = "FETCH_TASKS_FAILURE",
 
+    DELETE_TASKS_REQUEST = "DELETE_TASKS_REQUEST",
+    DELETE_TASKS_SUCCESS = "DELETE_TASKS_SUCCESS",
+    DELETE_TASKS_FAILURE = "DELETE_TASKS_FAILURE",
+
     CREATE_TASK_REQUEST = "CREATE_TASK_REQUEST",
     CREATE_TASK_SUCCESS = "CREATE_TASK_SUCCESS",
     CREATE_TASK_FAILURE = "CREATE_TASK_FAILURE",
@@ -27,8 +31,11 @@ export type TaskListState = {
     | { type: TaskListAvailableAction.CREATE_TASK_REQUEST }
     | { type: TaskListAvailableAction.CREATE_TASK_SUCCESS }
     | { type: TaskListAvailableAction.CREATE_TASK_FAILURE; payload: string }
-    | { type: TaskListAvailableAction.REORDER_TASKS; payload: ProjectData };
-  
+    | { type: TaskListAvailableAction.REORDER_TASKS; payload: ProjectData }
+    | { type: TaskListAvailableAction.DELETE_TASKS_REQUEST }
+    | { type: TaskListAvailableAction.DELETE_TASKS_SUCCESS }
+    | { type: TaskListAvailableAction.DELETE_TASKS_FAILURE; payload: string }
+    
   // A type to hold dispatch actions in a context.
   export type TasksDispatch = React.Dispatch<TaskActions>;
 
