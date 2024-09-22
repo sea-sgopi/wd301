@@ -53,7 +53,10 @@ const router = createBrowserRouter([
         path: "projects",
         element: <ProjectContainer />,
         children: [
-          { index: true, element: <Projects /> },
+          { index: true, 
+            element: <Projects />,
+            ErrorBoundary: () => <>Failed to load the projects</>,
+          },
           {
             path: ":projectID",
             element: <ProjectDetails />,
@@ -76,7 +79,8 @@ const router = createBrowserRouter([
       },
       {
         path: "members",
-        element: <Members />
+        element: <Members />,
+        ErrorBoundary: () => <>Failed to load the members</>,
       },
     ],
   },

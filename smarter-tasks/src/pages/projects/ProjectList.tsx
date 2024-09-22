@@ -1,12 +1,25 @@
-import React from "react";
-import ProjectListItems from "./ProjectListItems";
+import React, { Suspense } from "react";
+const ProjectList = React.lazy(() => import("./ProjectList"));
+import NewProject from "./NewProject";
+import ErrorBoundary from "../../components/ErrorBoundary";
 
-const ProjectList: React.FC = () => {
+const Projects = () => {
   return (
-    <div className="grid gap-4 grid-cols-4 mt-5">
-      <ProjectListItems />
-    </div>
+    <>
+      <div className="flex justify-between">
+        <h2 className="text-2xl font-medium tracking-tight text-slate-700">
+          Projects
+        </h2>
+        <NewProject />
+      </div>
+      <ErrorBoundary>
+        <Suspense fallback={<div className="suspense-loading">Loading...</div>}>
+          <ProjectList />
+        </Suspense>
+      </ErrorBoundary>
+    </>
   );
 };
 
-export default ProjectList;
+
+export default Projects;
