@@ -1,18 +1,18 @@
 import { Reducer } from "react";
 
-import { CommentListAvailableAction, CommentListState, CommentActions } from "./types";
+import { CommentListAvailableAction, CommentsState ,CommentsActions } from "./types";
 
 // Define the initial state
-export const initialState: CommentListState = {
+export const initialState: CommentsState = {
     comments: [],
     isLoading: false,
     isError: false,
     errorMessage: "",
   };
   
-  export const commentReducer: Reducer<CommentListState, CommentActions> = (
-    state = initialState,
-    action
+  export const commentReducer: Reducer<CommentsState, CommentsActions> = (
+    state: CommentsState = initialState,
+    action: CommentsActions
   ) => {
     switch (action.type) {
       // Update reducer to handle the actions dispatched on fetching COMMENTSs.

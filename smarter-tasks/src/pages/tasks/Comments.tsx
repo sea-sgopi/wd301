@@ -1,11 +1,12 @@
 
 import { useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useCommentsDispatch, useCommentsState } from '../../context/comment/context';
-import { CommentDetails } from '../../context/comment/types';
-import { addComment, refreshComments } from '../../context/comment/actions';
+import { useCommentsDispatch } from '../../context/comment/context';
+import { CommentData } from '../../context/comment/types';
+import { addComment } from '../../context/comment/actions';
 import CommentList from './CommentList';
-type CommentDataPayload = Omit<CommentDetails, "task_id" | "owner" >;
+
+type CommentDataPayload = Omit<CommentData, "task_id" | "owner" >;
 
 export default function Comments() {
   const { projectID, taskID } = useParams();
@@ -21,11 +22,7 @@ export default function Comments() {
 
   const onSubmit: SubmitHandler<CommentDataPayload> = async (data) => {
     const { description } = data
-   const result =  await addComment(commentDispatch, `${projectID}`, `${taskID}`, {description})
-
-    if(result == null) {
-        console.log("Added the comment successfully");
-    }
+   await addComment(commentDispatch, `${projectID}`, `${taskID}`, { description})
   };
 
   return (

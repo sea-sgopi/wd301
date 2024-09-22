@@ -1,20 +1,28 @@
 import { useMembersState } from '../../context/members/context';
 import { useCommentsState } from '../../context/comment/context';
-import { CommentDetails } from '../../context/comment/types';
+import { CommentData } from '../../context/comment/types';
 
 
 export default function CommentList() {
   const commentState = useCommentsState();
   const memberState = useMembersState();
 
-  const dateFormatter = new Intl.DateTimeFormat('en-us', {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-  });
+  const FormatedTimeDate = (date: string) => {
+    const newDate = new Date(date);
+    const formatDate = newDate.toDateString();
+    let hours = newDate.getHours();
+    const minutes = newDate.getMinutes();
+    const newformat = hours >= 12 ? "PM" : "AM";
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    const formatedTime = `${hours}:${
+      minutes < 10 ? "0" + minutes : minutes
+    } ${newformat}`;
+
+    return `${formatDate} ${formatedTime}`;
+  };
 
   const { comments, isLoading, isError, errorMessage } = commentState;
 
@@ -29,31 +37,31 @@ export default function CommentList() {
     return <p className='mt-3 text-pink-500'>{errorMessage}</p>;
   }
 
-  const OwnerComment = (ownerId : any) => {
-    const assignee = memberState?.members?.find(
-      (member) => member.id === ownerId
-    );
-    return assignee?.name || 'Unknown';
-  }
+  const retriveComment = (owner: any) => {
+    const assignee = memberState?.members?.filter(
+      (member) => member.id === owner
+    )?.[0];
+    return assignee?.name;
+  };
 
   return (
-    <div className='mt-3'>
-      <h2 className='font-bold'>Comments</h2>
-      {comments.length === 0 ? (
-        <p>No comments yet.</p>
-      ) : (
-        comments.map((comment: CommentDetails) => (
-          <div className='comment my-3 bg-slate-400 rounded p-3' key={comment.id}>
-            <div className='flex justify-between'>
-              <h2 className='font-semibold'>{OwnerComment(comment.owner)}:</h2>
-              <p className='text-sm text-gray-700 font-semibold'>
-                {dateFormatter.format(new Date(comment.createdAt))}
+    <div className="mt-3">
+      <h2 className="font-bold">Comments</h2>
+      {commentState.comments.map((comment: CommentData) => {
+        return (
+          <div className="comment my-3 rounded p-3 bg-purple-400">
+            <div className="flex justify-between">
+              <h2 className="font-semibold">
+                Member : {retriveComment(comment.owner)}
+              </h2>
+              <p className="text-sm font-semibold">
+                {FormatedTimeDate(comment.createdAt)}
               </p>
             </div>
             <p>{comment.description}</p>
           </div>
-        ))
-      )}
+        );
+      })}
     </div>
   );
 }

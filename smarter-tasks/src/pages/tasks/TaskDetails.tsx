@@ -12,8 +12,8 @@ import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import { useMembersState } from "../../context/members/context";
 
 import Comments from "./Comments";
-import { addComment, refreshComments } from "../../context/comment/actions";
-import { useCommentsDispatch } from "../../context/comment/context";
+import { refreshComments } from "../../context/comment/actions";
+import { useCommentsDispatch, useCommentsState } from "../../context/comment/context";
 
 type TaskFormUpdatePayload = TaskDetailsPayload & {
     selectedPerson: string;
@@ -42,10 +42,11 @@ const TaskDetails = () => {
   const projectState = useProjectsState();
   const taskListState = useTasksState();
   const taskDispatch = useTasksDispatch();
+  const commentState = useCommentsState();
 
-  const selectedProject = projectState?.projects.find(
+  const selectedProject = projectState?.projects.filter(
     (project) => `${project.id}` === projectID
-  );
+  )?.[0];
 
   const selectedTask = taskListState.projectData.tasks[taskID ?? ""];
   // Use react-form-hook to manage the form. Initialize with data from selectedTask.

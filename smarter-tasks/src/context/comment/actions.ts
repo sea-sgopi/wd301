@@ -16,7 +16,7 @@ export const addComment = async (
   dispatch: CommentsDispatch,
   projectID: string,
   taskID: string,
-  comment: { description: string}
+  arg: { description: string}
 ) => {
   const token = localStorage.getItem("authToken") ?? "";
   try {
@@ -32,7 +32,7 @@ export const addComment = async (
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(comment),
+        body: JSON.stringify(arg),
       }
     );
 
