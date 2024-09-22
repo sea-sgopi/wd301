@@ -19,7 +19,7 @@ export const initialState: CommentsState = {
       case CommentListAvailableAction.FETCH_COMMENTS_REQUEST:
         return { ...state, isLoading: true };
       case CommentListAvailableAction.FETCH_COMMENTS_SUCCESS:
-        return { ...state, isLoading: false, projectData: action.payload };
+        return { ...state, isLoading: false, comments: action.payload };
       case CommentListAvailableAction.FETCH_COMMENTS_FAILURE:
         return {
           ...state,
@@ -40,7 +40,7 @@ export const initialState: CommentsState = {
         };
   
       case CommentListAvailableAction.REORDER_COMMENTS:
-        return { ...state, isLoading: false, projectData: action.payload };
+        return { ...state, isLoading: false, comments: action.payload };
       default:
         return state;
     }
