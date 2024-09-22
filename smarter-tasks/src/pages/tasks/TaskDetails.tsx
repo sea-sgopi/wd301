@@ -11,6 +11,10 @@ import { TaskDetailsPayload } from "../../context/task/types";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import { useMembersState } from "../../context/members/context";
 
+import Comments from "./Comments";
+import { addComment, refreshComments } from "../../context/comment/actions";
+import { useCommentsDispatch } from "../../context/comment/context";
+
 type TaskFormUpdatePayload = TaskDetailsPayload & {
     selectedPerson: string;
   };
@@ -32,21 +36,27 @@ const TaskDetails = () => {
   const { projectID, taskID } = useParams();
   const navigate = useNavigate();
   const memberState = useMembersState();
+  const commentDispatch = useCommentsDispatch();
 
   // Extract project and task details.
   const projectState = useProjectsState();
   const taskListState = useTasksState();
   const taskDispatch = useTasksDispatch();
 
-  const selectedProject = projectState?.projects.filter(
+  const selectedProject = projectState?.projects.find(
     (project) => `${project.id}` === projectID
-  )[0];
+  );
 
   const selectedTask = taskListState.projectData.tasks[taskID ?? ""];
   // Use react-form-hook to manage the form. Initialize with data from selectedTask.
   const [selectedPerson, setSelectedPerson] = useState(
     selectedTask.assignedUserName ?? ""
   );
+
+  useEffect(()=>{
+    refreshComments(commentDispatch,`${projectID}`, `${taskID}`);
+  },[taskID,projectID,commentDispatch])
+
   const {
     register,
     handleSubmit,
@@ -200,6 +210,7 @@ const TaskDetails = () => {
                       </button>
                     </form>
                   </div>
+                  <Comments />
                 </Dialog.Panel>
               </Transition.Child>
             </div>

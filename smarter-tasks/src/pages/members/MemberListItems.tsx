@@ -11,7 +11,6 @@ export default function MemberListItems() {
   // Next, I'll destructure the state object to gain access to Members, 
   // isLoading, isError and errorMessage property.
   const { members, isLoading, isError, errorMessage } = state
-  console.log(members);
 
   // If `isLoading` is true, and there are no Members, in that case, 
   // I'll show a loading text

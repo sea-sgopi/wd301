@@ -63,7 +63,7 @@ const router = createBrowserRouter([
                   { path: "new", element: <NewTask /> },
                   {
                     path: ":taskID",
-                    children: [{ index: true, element: <TaskDetailsContainer /> }],
+                    children: [{ index: true, element: <TaskDetailsContainer />}]
                   },
                 ],
               },
