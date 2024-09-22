@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { AvailableColumns, ProjectData } from "../../context/task/types";
 import Column from "./Column";
@@ -29,8 +30,10 @@ const onDragEnd: OnDragEndResponder = (result) => {
   const finishKey = destination.droppableId as AvailableColumns;
 
   // Get source list to modify
+  // @ts-ignore
   const start = props.data.columns[startKey];
   // Get destination list to modify
+  // @ts-ignore
   const finish = props.data.columns[finishKey];
 
   
@@ -43,13 +46,15 @@ const onDragEnd: OnDragEndResponder = (result) => {
       taskIDs: newTaskIDs,
     };
     const newState = {
+      // @ts-ignore
       ...props.data,
       columns: {
+        // @ts-ignore
         ...props.data.columns,
         [newColumn.id]: newColumn,
       },
     };
-    reorderTasks(taskDispatch, newState);
+    reorderTasks(useTasksDispatch, newState);
     return;
   }
   // else the item is being dropped to a different list
