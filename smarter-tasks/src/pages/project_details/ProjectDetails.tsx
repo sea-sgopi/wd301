@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { useProjectsState } from "../../context/projects/context";
 import { useTasksState, useTasksDispatch } from "../../context/task/context";
-import DragDropList from "./DragDropList";
+import ErrorBoundary from "../../components/ErrorBoundary";
+const DragDropList = React.lazy(() => import("./DragDropList"));
 import { refreshTasks } from "../../context/task/actions";
 
 const ProjectDetails = () => {
@@ -43,9 +44,11 @@ const ProjectDetails = () => {
             New Task
           </button>
         </Link>
-        <div className="grid grid-cols-1 gap-2">
+        <ErrorBoundary>
+          <Suspense fallback={<div className="suspense-loading">Loading tasks...</div>}>
             <DragDropList data={tasksState.projectData} />
-        </div>
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </>
   );

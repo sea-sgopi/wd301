@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { fetchMembers } from "../../context/members/actions";
 
 // So, let's import the useMembersDispatch custom hook.
@@ -6,7 +6,8 @@ import { useMembersDispatch } from "../../context/members/context";
 
 // I'll import the MemberListItems component from the same folder. 
 // This I'll define next.
-import MemberListItems from './MemberListItems';
+const MemberListItems = React.lazy(() => import('./MemberListItems'));
+import ErrorBoundary from "../../components/ErrorBoundary";
 const MemberList: React.FC = () => {
 
   // I'll define a new constant called dispatchMembers, 
@@ -18,11 +19,13 @@ const MemberList: React.FC = () => {
     fetchMembers(dispatchMembers)
   }, [dispatchMembers])
   return (
-    <div className="grid gap-4 grid-cols-4 mt-5">
-      {/*To keep this file clean, I'll move all the logic to access the Members 
-       from our app-state, to a new component MemberListItems */}
-      <MemberListItems />
-    </div>
+    <ErrorBoundary>
+    <Suspense fallback={<div className="suspense-loading">Loading members...</div>}>
+      <div className="grid gap-4 grid-cols-4 mt-5">
+        <MemberListItems />
+      </div>
+    </Suspense>
+  </ErrorBoundary>
   );
 };
 export default MemberList;

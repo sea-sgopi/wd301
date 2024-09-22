@@ -1,5 +1,5 @@
+import React from "react";
 import { RouterProvider } from "react-router-dom";
-import { React, useContext } from "react";
 import { ThemeContext } from "./context/theme";
 import router from "./routes"
 import { ProjectsProvider } from "./context/projects/context";
