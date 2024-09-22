@@ -1,7 +1,7 @@
 import React from "react";
 import { RouterProvider } from "react-router-dom";
 import { ThemeContext } from "./context/theme";
-import router from "."
+import router from "./routes";
 import { ProjectsProvider } from "./context/projects/context";
 import { MembersProvider } from "./context/members/context";
 import { Suspense, useContext } from "react";

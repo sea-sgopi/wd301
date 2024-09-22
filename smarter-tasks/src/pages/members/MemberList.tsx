@@ -21,9 +21,7 @@ const MemberList: React.FC = () => {
   return (
     <ErrorBoundary>
     <Suspense fallback={<div className="suspense-loading">Loading members...</div>}>
-      <div className="grid gap-4 grid-cols-4 mt-5">
         <MemberListItems />
-      </div>
     </Suspense>
   </ErrorBoundary>
   );

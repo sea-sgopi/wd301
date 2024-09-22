@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import React from "react";
+import React, { lazy, Suspense }  from "react";
 import AccountLayout from "../layouts/account"
 import ProtectedRoute from "./ProtectedRoute"
 import NotFound from "../pages/Notfound";

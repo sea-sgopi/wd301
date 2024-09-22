@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-const ProjectList = React.lazy(() => import("./ProjectList"));
+const ProjectListItems = React.lazy(() => import("./ProjectList"));
 import NewProject from "./NewProject";
 import ErrorBoundary from "../../components/ErrorBoundary";
 
-const Projects = () => {
+const ProjectList = () => {
   return (
     <>
       <div className="flex justify-between">
@@ -14,7 +14,7 @@ const Projects = () => {
       </div>
       <ErrorBoundary>
         <Suspense fallback={<div className="suspense-loading">Loading...</div>}>
-          <ProjectList />
+          <ProjectListItems />
         </Suspense>
       </ErrorBoundary>
     </>
@@ -22,4 +22,4 @@ const Projects = () => {
 };
 
 
-export default Projects;
+export default ProjectList;
