@@ -1,22 +1,21 @@
 import React, { Suspense } from "react";
-const ProjectListItems = React.lazy(() => import("./ProjectList"));
+const ProjectListItems = React.lazy(()=> import('./ProjectListItems'))
 import NewProject from "./NewProject";
 import ErrorBoundary from "../../components/ErrorBoundary";
 
 const ProjectList = () => {
   return (
     <>
-      <div className="flex justify-between">
-        <h2 className="text-2xl font-medium tracking-tight text-slate-700">
-          Projects
-        </h2>
-        <NewProject />
-      </div>
+      <div className=" py-4">
       <ErrorBoundary>
         <Suspense fallback={<div className="suspense-loading">Loading...</div>}>
+          <div className="grid grid-cols-3 gap-4">
           <ProjectListItems />
+          </div>
         </Suspense>
       </ErrorBoundary>
+      </div>
+     
     </>
   );
 };
